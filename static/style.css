@@ -234,13 +234,13 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
 }
 .slide-1 {
-    background-image: url(images/1.jpg);
+    background-image: url(images/bg01.webp);
 }
 .slide-2 {
-    background-image: url(images/2.jpg);
+    background-image: url(images/bg02.webp);
 }
 .slide-3 {
-    background-image: url(images/3.jpg);
+    background-image: url(images/bg03.webp);
 }
 
 .slide-content{
