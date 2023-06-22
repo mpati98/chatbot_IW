@@ -146,7 +146,7 @@
                 console.log(r.audio);
                 let msg = { name: "Sam", message: r.res_text };
                 let audio_tag = r.res_audio;
-                var audio = new Audio("https://firebasestorage.googleapis.com/v0/b/arti-web-daae5.appspot.com/o/"+ audio_tag + ".mp3?alt=media&token="+ r.audio_token);
+                var audio = new Audio("https://firebasestorage.googleapis.com/v0/b/arti-web-daae5.appspot.com/o/"+ audio_tag + ".mp3?alt=media&token=b7285107-6520-46e7-9795-eb6e5c5526c4");
                 audio.play();
                 this.message.push(msg);
                 this.updateChatText(chatbox);
