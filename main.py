@@ -79,7 +79,7 @@ def chatbot_response(msg):
     if ints:
         res, tag = getResponse(ints, intents)
     else:
-        res = "Rất xin lỗi vì thông tin bạn cần không tồn tại trong hệ thống, chúng tôi sẽ kiểm tra và cập nhật trong thời gian tới. Bạn còn muốn biết thêm thông tin gì khác không?"
+        res = ["Rất xin lỗi vì thông tin bạn cần không tồn tại trong hệ thống, chúng tôi sẽ kiểm tra và cập nhật trong thời gian tới. Bạn còn muốn biết thêm thông tin gì khác không?", "930e5fa5-827a-454f-bcac-84e1b9dd5b4f"]
         tag = "Other"
     return res, tag
 
