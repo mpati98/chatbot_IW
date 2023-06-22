@@ -69,22 +69,22 @@
       </div>
       <div class="owl-carousel owl-theme">
         <div class="slide slide-1">
-            <div class="slide-content">
+            <!-- <div class="slide-content">
                 <h1>Chương trình Caravan Mekong Connect & Grow</h1>
                 <p>Đây là chương trình ngoài những trải nghiệm với hành trình trải dài từ Việt Nam sang lĩnh thổ nước bạn Cambodia, đó còn là một chuyến đi mang lại cho chúng ta nhiều cảm xúc, bởi Cambodia là một quốc gia huyền bí, miền đất thiêng mang lại cho chúng ta rất nhiều sự thiện lành, cảm xúc tích cực khi đến và khi trở về. Cambodia gợi cho chúng ta về những câu chuyện với những giai thoại cổ đại, bên cạnh đó là cảm giác của sự mộc mạc, chân phương và thiên nhiên an bình.</p>
-            </div>
+            </div> -->
         </div>
         <div class="slide slide-2">
-            <div class="slide-content">
+            <!-- <div class="slide-content">
                 <h1>Họp mặt đầu xuân</h1>
                 <p>Mọi người gặp gỡ nhau, cụng-ly với nhau và trao cho nhau những năng lượng tích cực. Bên cạnh đó, phía Ban điều hành cũng không quên chia sẻ những kế hoạch và chương trình hành động về công tác xã hội - thiện nguyện trong năm, qua đó lắng nghe những ý kiến, nguyện vọng và sự đồng hành của các thành viên.</p>
-            </div>
+            </div> -->
         </div>
         <div class="slide slide-3">
-            <div class="slide-content">
+            <!-- <div class="slide-content">
                 <h1>Lễ trao quà</h1>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, libero minus. Cumque nobis deserunt ducimus. Dolorem dicta necessitatibus beatae harum sunt cum optio reiciendis veritatis eveniet soluta. Doloribus, natus accusamus?</p>
-            </div>
+            </div> -->
         </div>
     </div>
     </div>
@@ -132,8 +132,8 @@
           this.state = !this.state;
           if (this.state) {
             chatbox.classList.add("chatbox--active");
-            fetch("http://127.0.0.1:5000/welcome", {
-              // fetch("https://chatbot-api-leqdt7akva-as.a.run.app/welcome", {
+            // fetch("http://127.0.0.1:5000/welcome", {
+              fetch("https://chatbot-iw-leqdt7akva-as.a.run.app/welcome", {
               method: "POST",
               body: JSON.stringify(),
               mode: "cors",
@@ -146,9 +146,7 @@
                 console.log(r.audio);
                 let msg = { name: "Sam", message: r.res_text };
                 let audio_tag = r.res_audio;
-                // /home/arti/Documents/Documents/Deployments/chatbot_api_test/data/audio/audioMay10
-                // var audio = new Audio("/home/arti/Documents/Documents/Deployments/chatbot_api_test/data/audio/audioMay10/"+ audio_tag + ".mp3");
-                var audio = new Audio("https://storage.cloud.google.com/voicebot-bucket/chatbot_api/data/audio/audioMay10/"+ audio_tag + ".mp3");
+                var audio = new Audio("https://firebasestorage.googleapis.com/v0/b/arti-web-daae5.appspot.com/o/"+ audio_tag + ".mp3?alt=media&token="+ r.audio_token);
                 audio.play();
                 this.message.push(msg);
                 this.updateChatText(chatbox);
@@ -169,8 +167,8 @@
           }
           let msg1 = { name: "User", message: text1 };
           this.message.push(msg1);
-          fetch('http://127.0.0.1:5000/response', {
-          // fetch("https://chatbot-api-leqdt7akva-as.a.run.app/response", {
+          // fetch('http://127.0.0.1:5000/response', {
+          fetch("https://chatbot-iw-leqdt7akva-as.a.run.app/response", {
             method: "POST",
             body: JSON.stringify({ message: text1 }),
             mode: "cors",
@@ -181,6 +179,11 @@
             .then((r) => r.json())
             .then((r) => {
               let msg2 = { name: "Sam", message: r.res_text };
+              if (r.res_audio === "IW_Thanks"){
+                let audio_tag = r.res_audio;
+                var audio = new Audio("https://firebasestorage.googleapis.com/v0/b/arti-web-daae5.appspot.com/o/"+ audio_tag + ".mp3?alt=media&token="+ r.audio_token);
+                audio.play();
+              }
               this.message.push(msg2);
               this.updateChatText(chatbox);
               textField.value = "";
@@ -228,8 +231,8 @@
             let msg1 = { name: "User", message: content };
             this.message.push(msg1);
             this.updateChatText(chatbox);
-            fetch('http://127.0.0.1:5000/response', {
-            // fetch("https://chatbot-api-leqdt7akva-as.a.run.app/response", {
+            // fetch('http://127.0.0.1:5000/response', {
+            fetch("https://chatbot-iw-leqdt7akva-as.a.run.app/response", {
               method: "POST",
               body: JSON.stringify({ message: content }),
               mode: "cors",
@@ -242,7 +245,7 @@
                 let msg3 = { name: "Sam", message: r.res_text };
                 let audio_tag = r.res_audio;
                 // var audio = new Audio("data/audio/audioMay10/"+ audio_tag + ".mp3");
-                var audio = new Audio("https://storage.cloud.google.com/voicebot-bucket/chatbot_api/data/audio/audioMay10/"+ audio_tag + ".mp3");
+                var audio = new Audio("https://storage.cloud.google.com/voicebot-bucket/chatbot_api/data/audio/IW_May262023/"+ audio_tag + ".mp3");
                 audio.play();
                 this.message.push(msg3);
                 this.updateChatText(chatbox);

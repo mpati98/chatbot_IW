@@ -110,12 +110,17 @@ class Chatbot(Resource):
         text_input = request.get_json().get("message")
         text_input = transText(text_input)
         try:
-            resp, tag = chatbot_response(text_input)
+            if text_input.isnumeric():
+                resp = ["Cảm ơn bạn đã tin tưởng sử dụng dịch vụ. Chúng tôi sẽ liên hệ lại ngay khi có thể. Chúc bạn một ngày mới vui vẻ và gặp nhiều may mắn nhé!", "a991cca9-a897-4a2a-a214-5109cf04c193"]
+                tag = "IW_Thanks"
+            else:
+                resp, tag = chatbot_response(text_input)
         except:
-            resp = "Tín hiệu không ổn định, vui lòng lặp lại rõ hơn nhé"
+            resp = ["Tín hiệu không ổn định, vui lòng lặp lại rõ hơn nhé", "fbad6e35-3933-4388-be7b-d6dda276e114"]
             tag = "Error"
         output = {
-            "res_text": resp,
+            "res_text": resp[0],
+            "audio_token": resp[1],
             "res_audio": tag
         }
         return jsonify(output)
