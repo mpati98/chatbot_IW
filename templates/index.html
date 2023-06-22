@@ -205,32 +205,21 @@
           recognition.lang = "vi-VN";
           recognition.interimResults = false;
           var content;
-          if (!this.recordS) {
-            recognition.start();
-            console.log("starting");
-            recognition.onerror = function (event) {
-              // message.textContent = 'Error occurred in recognition: ' + event.error;
-              console.log(event.error);
-            };
-
-            recognition.onresult = function (event) {
-              var lastResult = event.results.length - 1;
-              content = event.results[lastResult][0].transcript;
-              var chatmessage = chatbox.querySelector(".chatbox__messages");
-              chatmessage.textField = content;
-              // content = content.json()
-            };
-            recognition.onspeechend = function () {
-              recognition.stop();
-            };
-            this.recordS = true;
-          } else {
+          recognition.start();
+          recognition.onresult = function (event) {
+            var lastResult = event.results.length - 1;
+            content = event.results[lastResult][0].transcript;
             var chatmessage = chatbox.querySelector(".chatbox__messages");
-            content = chatmessage.textField;
+            chatmessage.textField = content;
+          };
+          setTimeout(() => recognition.stop(), 5000);
+          setTimeout(() => {
+            console.log("sending msg");
             console.log(content);
             let msg1 = { name: "User", message: content };
             this.message.push(msg1);
             this.updateChatText(chatbox);
+            // content = "";
             // fetch('http://127.0.0.1:5000/response', {
             fetch("https://chatbot-iw-leqdt7akva-as.a.run.app/response", {
               method: "POST",
@@ -240,12 +229,11 @@
                 "Content-Type": "application/json",
               },
             })
-              .then((r) => r.json())
+            .then((r) => r.json())
               .then((r) => {
                 let msg3 = { name: "Sam", message: r.res_text };
                 let audio_tag = r.res_audio;
-                // var audio = new Audio("data/audio/audioMay10/"+ audio_tag + ".mp3");
-                var audio = new Audio("https://storage.cloud.google.com/voicebot-bucket/chatbot_api/data/audio/IW_May262023/"+ audio_tag + ".mp3");
+                var audio = new Audio("https://firebasestorage.googleapis.com/v0/b/arti-web-daae5.appspot.com/o/"+ audio_tag + ".mp3?alt=media&token="+ r.audio_token);
                 audio.play();
                 this.message.push(msg3);
                 this.updateChatText(chatbox);
@@ -254,8 +242,8 @@
                 // console.error('Error: ', error);
                 this.updateChatText(chatbox);
               });
-            this.recordS = false;
-          }
+              content = "";
+            }, 5100);
         }
         updateChatText(chatbox) {
           var html = "";
